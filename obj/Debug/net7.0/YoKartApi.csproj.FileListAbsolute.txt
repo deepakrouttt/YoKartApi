@@ -74,3 +74,4 @@ C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\refint\Yo
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.pdb
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.genruntimeconfig.cache
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\ref\YoKartApi.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.sourcelink.json

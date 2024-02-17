@@ -39,10 +39,19 @@ namespace YoKartApi.Controller
             return Ok(category);
         }
 
+
         [HttpGet("subcategories")]
         public IActionResult GetSubCategories()
         {
             var subcategories = _context.SubCategories.ToList();
+            return Ok(subcategories);
+        }
+            
+        [HttpGet("GetSubCategory/{id}")]
+        public IActionResult GetSubCategory(int id)
+        {
+            var subcategories = _context.SubCategories.FirstOrDefault(c => c.SubCategoryId == id);
+
             return Ok(subcategories);
         }
 
@@ -91,7 +100,23 @@ namespace YoKartApi.Controller
 
             return Ok(existingCategory);
         }
+        [HttpPut]
+        [Route("existSubCategories")]
+        public IActionResult ExistSubCategory(SubCategory category)
+        {
+            var existingCategory = _context.SubCategories.FirstOrDefault(c => c.SubCategoryId == category.SubCategoryId);
 
+            if (existingCategory == null)
+            {
+                return NotFound("Category not found");
+            }
+
+            existingCategory.SubCategoryName = category.SubCategoryName;
+
+            _context.SaveChanges();
+
+            return Ok(existingCategory);
+        }
         [HttpDelete]
         [Route("removeCategoryies")]
         public IActionResult RemoveCategories(int id)

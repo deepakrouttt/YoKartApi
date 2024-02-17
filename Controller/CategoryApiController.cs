@@ -12,16 +12,19 @@ namespace YoKartApi.Controller
     public class CategoryApiController : ControllerBase
     {
         private readonly YoKartApiDbContext _context;
+        private readonly ILogger<CategoryApiController> _logger;
 
-        public CategoryApiController(YoKartApiDbContext context)
+        public CategoryApiController(YoKartApiDbContext context, ILogger<CategoryApiController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet("categories")]
         public IActionResult GetCategories()
         {
             var categories = _context.Categories.Include(c => c.SubCategories).ToList();
+            _logger.LogInformation("Processing GET request");
             return Ok(categories);
         }
 

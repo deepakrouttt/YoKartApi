@@ -15,13 +15,30 @@ namespace YoKartApi.Controller
             _context = context;
         }
 
-        [HttpGet("GetProduct")]
+        [HttpGet("GetProducts")]
+        public IActionResult GetProducts()
+        {
+            var products = _context.Products.ToList();
+
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetProducts(int id)
+        {
+            var products = _context.Products.Find(id);
+
+            return Ok(products);
+        }
+
+        [HttpGet("GetProductsForSubcategory")]
         public IActionResult GetProductsForSubcategory(int subcategoryId)
         {
             var products = _context.Products.Where(p => p.SubCategoryId == subcategoryId).ToList();
 
             return Ok(products);
         }
+
         [HttpPost("AddProduct")]
         public IActionResult AddProduct(Product _product)
         {
@@ -29,6 +46,27 @@ namespace YoKartApi.Controller
             _context.SaveChanges();
 
             return Ok(_product);
+        }
+
+        [HttpPost("UpdateProduct")]
+        public async Task<IActionResult>EditProduct(Product _product)
+        {
+            var product = _context.Products.FirstOrDefault(s => s.ProductId == _product.ProductId);
+
+            if (product == null)
+            {
+                return NotFound("Category not found");
+            }
+
+            product.CategoryId = _product.CategoryId;
+            product.SubCategoryId = _product.SubCategoryId;
+            product.ProductName = _product.ProductName;
+            product.ProductImage = _product.ProductImage;
+            product.ProductPrice = _product.ProductPrice;
+            product.ProductDescription = _product.ProductDescription;
+
+            _context.SaveChanges();
+            return Ok(product);
         }
     }
 }

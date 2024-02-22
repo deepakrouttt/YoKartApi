@@ -48,7 +48,7 @@ namespace YoKartApi.Controller
             return Ok(_product);
         }
 
-        [HttpPost("UpdateProduct")]
+        [HttpPut("UpdateProduct")]
         public async Task<IActionResult>EditProduct(Product _product)
         {
             var product = _context.Products.FirstOrDefault(s => s.ProductId == _product.ProductId);
@@ -66,6 +66,16 @@ namespace YoKartApi.Controller
             product.ProductDescription = _product.ProductDescription;
 
             _context.SaveChanges();
+            return Ok(product);
+        }
+        [HttpDelete]
+        [Route("DeleteProduct")]
+        public async Task<IActionResult>Delete(int id)
+        {
+            var product = _context.Products.FirstOrDefault(m => m.ProductId == id);
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+
             return Ok(product);
         }
     }

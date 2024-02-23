@@ -23,6 +23,17 @@ namespace YoKartApi.Controller
             return Ok(products);
         }
 
+
+        [HttpGet("GetProductsRange")]
+        public IActionResult GetProducts(long? low, long? high)
+        {
+            if (high == null) { high = long.MaxValue; };
+            var products = _context.Products.Where(m => Convert.ToInt64(m.ProductPrice) > (low ?? 0) && 
+            Convert.ToInt64(m.ProductPrice) < high);
+
+            return Ok(products);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetProducts(int id)
         {
@@ -49,7 +60,7 @@ namespace YoKartApi.Controller
         }
 
         [HttpPut("UpdateProduct")]
-        public async Task<IActionResult>EditProduct(Product _product)
+        public async Task<IActionResult> EditProduct(Product _product)
         {
             var product = _context.Products.FirstOrDefault(s => s.ProductId == _product.ProductId);
 
@@ -70,7 +81,7 @@ namespace YoKartApi.Controller
         }
         [HttpDelete]
         [Route("DeleteProduct")]
-        public async Task<IActionResult>Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var product = _context.Products.FirstOrDefault(m => m.ProductId == id);
             _context.Products.Remove(product);

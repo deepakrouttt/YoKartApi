@@ -21,7 +21,20 @@ namespace YoKartApi.Models
         [Required]
         public string ProductDescription { get; set; }
 
+    }
 
-
+    public class Paging
+    {
+        public int? page { get; set; }
+        public long LowPrice { get; set; }
+        public long HighPrice { get; set; }
+    }
+    public class ProductPagingData
+    {
+        public  List<Product> Product { get; set; }
+        public  int pageSize = 2;
+        public  int pageCount { get; set; }
+        public  int Total { get; set; }
+        public  int currentPage { get; set; }
     }
 }

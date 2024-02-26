@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Numerics;
 using YoKartApi.Data;
 using YoKartApi.Models;
 
@@ -19,19 +21,16 @@ namespace YoKartApi.Controller
         public IActionResult GetProducts()
         {
             var products = _context.Products.ToList();
-
             return Ok(products);
         }
 
-
         [HttpGet("GetProductsRange")]
-        public IActionResult GetProducts(long? low, long? high)
+        public IActionResult GetProducts([FromQuery] Paging obj)
         {
-            if (high == null) { high = long.MaxValue; };
-            var products = _context.Products.Where(m => Convert.ToInt64(m.ProductPrice) > (low ?? 0) && 
-            Convert.ToInt64(m.ProductPrice) < high);
-
-            return Ok(products);
+            if (obj.HighPrice is 0) { obj.HighPrice = long.MaxValue; };
+            var Rangeproducts = _context.Products.Where(m => Convert.ToInt64(m.ProductPrice) > obj.LowPrice &&
+               Convert.ToInt64(m.ProductPrice) < obj.HighPrice).OrderBy(m => Convert.ToInt64(m.ProductPrice));
+            return Ok(myVar.PagingProduct(Rangeproducts, obj));
         }
 
         [HttpGet("{id}")]

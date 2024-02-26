@@ -35,7 +35,7 @@ namespace YoKartApi.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("YoKartApi.Models.Product", b =>
@@ -70,7 +70,7 @@ namespace YoKartApi.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("YoKartApi.Models.SubCategory", b =>
@@ -92,7 +92,7 @@ namespace YoKartApi.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories");
+                    b.ToTable("SubCategories", (string)null);
                 });
 
             modelBuilder.Entity("YoKartApi.Models.User", b =>
@@ -129,7 +129,7 @@ namespace YoKartApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("YoKartApi.Models.SubCategory", b =>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YoKartApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b514cd7b962cce32b3710ecdab163a63373891d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd7d55d1c1a74889c3b4e429e61f204c0ac02cdc")]
 [assembly: System.Reflection.AssemblyProductAttribute("YoKartApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YoKartApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

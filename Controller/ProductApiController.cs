@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Numerics;
 using YoKartApi.Data;
 using YoKartApi.Models;
+using YoKartApi.Services;
 
 namespace YoKartApi.Controller
 {
@@ -11,10 +10,12 @@ namespace YoKartApi.Controller
     public class ProductApiController : ControllerBase
     {
         private readonly YoKartApiDbContext _context;
+        private readonly IProductServices _services;
 
-        public ProductApiController(YoKartApiDbContext context)
+        public ProductApiController(YoKartApiDbContext context, IProductServices services)
         {
             _context = context;
+            _services = services;
         }
 
         [HttpGet("GetProducts")]
@@ -25,12 +26,11 @@ namespace YoKartApi.Controller
         }
 
         [HttpGet("GetProductsRange")]
-        public IActionResult GetProducts([FromQuery] Paging obj)
+        public IActionResult GetProducts([FromQuery] Paging? obj)
         {
             if (obj.HighPrice is 0) { obj.HighPrice = long.MaxValue; };
-            var Rangeproducts = _context.Products.Where(m => Convert.ToInt64(m.ProductPrice) > obj.LowPrice &&
-               Convert.ToInt64(m.ProductPrice) < obj.HighPrice).OrderBy(m => Convert.ToInt64(m.ProductPrice));
-            return Ok(myVar.PagingProduct(Rangeproducts, obj));
+            var product = _services.Productpaging(_context.Products.ToList(), obj) ;
+            return Ok(product);
         }
 
         [HttpGet("{id}")]

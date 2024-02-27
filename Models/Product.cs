@@ -34,7 +34,7 @@ namespace YoKartApi.Models
         public  List<Product> Product { get; set; }
         public  int pageSize = 2;
         public  int pageCount { get; set; }
-        public  int Total { get; set; }
+        public  int totalProduct { get; set; }
         public  int currentPage { get; set; }
     }
 }

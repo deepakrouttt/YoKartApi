@@ -28,7 +28,7 @@ namespace YoKartApi.Controller
         [HttpGet("GetProductsRange")]
         public IActionResult GetProducts([FromQuery] Paging? obj)
         {
-            if (obj.HighPrice is 0) { obj.HighPrice = long.MaxValue; };
+            if (obj.HighPrice is 0) { obj.HighPrice = Decimal.MaxValue; };
             var product = _services.Productpaging(_context.Products.ToList(), obj) ;
             return Ok(product);
         }

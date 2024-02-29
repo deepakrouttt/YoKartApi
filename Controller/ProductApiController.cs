@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using YoKartApi.Data;
 using YoKartApi.Models;
 using YoKartApi.Services;
@@ -21,7 +22,8 @@ namespace YoKartApi.Controller
         [HttpGet("GetProducts")]
         public IActionResult GetProducts()
         {
-            var products = _context.Products.ToList();
+            var products = _services.RandomProduct(_context.Products.ToList());
+
             return Ok(products);
         }
 
@@ -30,6 +32,13 @@ namespace YoKartApi.Controller
         {
             if (obj.HighPrice is 0) { obj.HighPrice = Decimal.MaxValue; };
             var product = _services.Productpaging(_context.Products.ToList(), obj) ;
+            return Ok(product);
+        }
+
+        [HttpGet("GetProductsBySearch")]
+        public IActionResult GetProductsBySearch(string? search)
+        {
+            var product = _services.ProductSearch(_context.Products.ToList(),search);
             return Ok(product);
         }
 

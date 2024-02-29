@@ -8,6 +8,7 @@ namespace YoKartApi.Services
     public class ProductServices : IProductServices
     {
         public readonly YoKartApiDbContext _context;
+        private static bool isAscending = true;
 
         public ProductServices(YoKartApiDbContext context)
         {
@@ -30,33 +31,45 @@ namespace YoKartApi.Services
             var tempProduct = ProductList.Skip((myVar.currentPage - 1) * myVar.pageSize).Take(myVar.pageSize).ToList();
             myVar.totalProduct = ProductList.Count;
 
-            //Sorting of Products
             if (obj.Sort != null)
             {
+
                 switch (obj.Sort)
                 {
                     case "CategoryName":
-                        Rangeproducts = tempProduct.OrderBy(m => _context.Categories.Find(m.CategoryId).CategoryName);
+                        Rangeproducts = isAscending
+                              ? tempProduct.OrderBy(m => _context.Categories.Find(m.CategoryId).CategoryName)
+                              : tempProduct.OrderByDescending(m => _context.Categories.Find(m.CategoryId).CategoryName);
                         break;
                     case "SubCategoryName":
-                        Rangeproducts = tempProduct.OrderBy(m => _context.SubCategories.Find(m.SubCategoryId).SubCategoryName);
+                        Rangeproducts = isAscending
+                        ? tempProduct.OrderBy(m => _context.SubCategories.Find(m.SubCategoryId).SubCategoryName)
+                            : tempProduct.OrderByDescending(m => _context.SubCategories.Find(m.SubCategoryId).SubCategoryName);
                         break;
                     case "ProductName":
-                        Rangeproducts = tempProduct.OrderBy(m => m.ProductName.ToLower());
+                        Rangeproducts = isAscending
+                        ? tempProduct.OrderBy(m => m.ProductName.ToLower())
+                        : tempProduct.OrderByDescending(m => m.ProductName.ToLower());
                         break;
                     case "ProductImage":
-                        Rangeproducts = tempProduct.OrderBy(m => m.ProductImage);
+                        Rangeproducts = isAscending
+                        ? tempProduct.OrderBy(m => m.ProductImage)
+                        : tempProduct.OrderByDescending(m => m.ProductImage);
                         break;
                     case "ProductPrice":
-                        Rangeproducts = tempProduct.OrderBy(m => Convert.ToDecimal(m.ProductPrice));
+                        Rangeproducts = isAscending
+                        ? tempProduct.OrderBy(m => Convert.ToDecimal(m.ProductPrice))
+                        : tempProduct.OrderByDescending(m => Convert.ToDecimal(m.ProductPrice));
                         break;
                     case "ProductDescription":
-                        Rangeproducts = tempProduct.OrderBy(m => m.ProductDescription);
+                        Rangeproducts = isAscending
+                        ? tempProduct.OrderBy(m => m.ProductDescription)
+                        : tempProduct.OrderByDescending(m => m.ProductDescription);
                         break;
                     default:
                         break;
                 }
-
+                isAscending = !isAscending;
                 return new()
                 {
                     Product = Rangeproducts.ToList(),
@@ -75,6 +88,42 @@ namespace YoKartApi.Services
                 totalProduct = myVar.totalProduct,
                 currentPage = myVar.currentPage
             };
+        }
+
+
+        public List<Product> ProductSearch(List<Product> Products, string search)
+        {
+            var ProductList = new List<Product>();
+            if (!string.IsNullOrEmpty(search))
+            {
+                ProductList = Products.Where(p => (p.ProductName.Contains(search))
+                                                  || (p.ProductImage.Contains(search))
+                                                  || (_context.Categories.FirstOrDefault(m => m.CategoryId == p.CategoryId).CategoryName.Contains(search))
+                                                  || (_context.SubCategories.FirstOrDefault(m => m.SubCategoryId == p.SubCategoryId).SubCategoryName.Contains(search))
+                                                  ).ToList();
+            }
+            else
+            {
+                ProductList = Products;
+            }
+            return ProductList;
+        }
+
+
+        //Random Product Listing
+        public List<Product> RandomProduct(List<Product> products)
+        {
+            Random random = new Random();
+            int n = products.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                var value = products[k];
+                products[k] = products[n];
+                products[n] = value;
+            }
+            return products;
         }
 
     }

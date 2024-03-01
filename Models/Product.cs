@@ -23,7 +23,7 @@ namespace YoKartApi.Models
 
     }
 
-    public class Paging
+    public class filtering
     {
         public int? page { get; set; }
         public Decimal LowPrice { get; set; }

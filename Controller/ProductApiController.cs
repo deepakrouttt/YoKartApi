@@ -1,11 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Data;
+using System.Security.Claims;
 using YoKartApi.Data;
+using YoKartApi.IServices;
 using YoKartApi.Models;
-using YoKartApi.Services;
 
 namespace YoKartApi.Controller
 {
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductApiController : ControllerBase
@@ -25,10 +30,11 @@ namespace YoKartApi.Controller
             var products = _services.RandomProduct(_context.Products.ToList());
 
             return Ok(products);
+
         }
 
         [HttpGet("GetProductsRange")]
-        public IActionResult GetProducts([FromQuery] Paging? obj)
+        public IActionResult GetProductsRange([FromQuery] filtering? obj)
         {
             if (obj.HighPrice is 0) { obj.HighPrice = Decimal.MaxValue; };
             var product = _services.Productpaging(_context.Products.ToList(), obj) ;

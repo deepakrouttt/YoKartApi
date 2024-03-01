@@ -1,10 +1,10 @@
 ﻿using YoKartApi.Models;
 
-namespace YoKartApi.Services
+namespace YoKartApi.IServices
 {
     public interface IProductServices
     {
-        ProductPagingData Productpaging(List<Product> Products, Paging obj);
+        ProductPagingData Productpaging(List<Product> Products, filtering obj);
 
         List<Product> ProductSearch(List<Product> Products, string search);
 

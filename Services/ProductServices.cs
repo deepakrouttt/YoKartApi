@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using YoKartApi.Data;
+using YoKartApi.IServices;
 using YoKartApi.Models;
 
 namespace YoKartApi.Services
@@ -15,7 +16,7 @@ namespace YoKartApi.Services
             _context = context;
         }
 
-        public ProductPagingData Productpaging(List<Product> Products, Paging obj)
+        public ProductPagingData Productpaging(List<Product> Products, filtering obj)
         {
 
             var Rangeproducts = Products.Where(m => Convert.ToDecimal(m.ProductPrice) > obj.LowPrice);

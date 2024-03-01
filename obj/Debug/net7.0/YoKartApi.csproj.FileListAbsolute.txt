@@ -8,6 +8,8 @@ C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\YoKartApi
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Azure.Core.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Azure.Identity.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Humanizer.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\System.Web.Http.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
@@ -29,6 +31,8 @@ C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Microsoft
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -60,6 +64,7 @@ C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.csproj.CoreCompileInputs.cache
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.sourcelink.json
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\staticwebassets.development.json
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\staticwebassets\msbuild.YoKartApi.Microsoft.AspNetCore.StaticWebAssets.props
@@ -74,4 +79,3 @@ C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\refint\Yo
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.pdb
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.genruntimeconfig.cache
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\ref\YoKartApi.dll
-C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartApi\obj\Debug\net7.0\YoKartApi.sourcelink.json

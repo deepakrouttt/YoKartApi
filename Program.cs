@@ -19,19 +19,21 @@ namespace YoKartApi
             builder.Services.AddScoped<IProductServices, ProductServices>();
             builder.Services.AddScoped<IUserServices, UserServices>();
 
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options =>
-            {
-                options.ExpireTimeSpan = TimeSpan.FromSeconds(60);
-                options.LoginPath = "/api/UserApi/Login";
-                options.AccessDeniedPath = "/Account/AccessDenied";
-            });
+            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //.AddCookie(options =>
+            //{
 
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
-            });
+            //    options.Cookie.Name = "user_token";
+            //    options.ExpireTimeSpan = TimeSpan.FromSeconds(60);
+            //    options.LoginPath = "/api/UserApi/Login";
+            //    options.AccessDeniedPath = "/Account/AccessDenied";
+            //});
+
+            //builder.Services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+            //    options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
+            //});
 
 
             builder.Services.AddControllers();
@@ -52,7 +54,7 @@ namespace YoKartApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseCookiePolicy();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

@@ -17,7 +17,7 @@ namespace YoKartApi.Models
         [Required]
         public string ProductImage { get; set; }
         [Required]
-        public string ProductPrice { get; set; }
+        public Decimal ProductPrice { get; set; }
         [Required]
         public string ProductDescription { get; set; }
 

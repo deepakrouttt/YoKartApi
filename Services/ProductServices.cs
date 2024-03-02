@@ -19,11 +19,11 @@ namespace YoKartApi.Services
         public ProductPagingData Productpaging(List<Product> Products, filtering obj)
         {
 
-            var Rangeproducts = Products.Where(m => Convert.ToDecimal(m.ProductPrice) > obj.LowPrice);
+            var Rangeproducts = Products.Where(m => m.ProductPrice > obj.LowPrice);
 
             if (obj.HighPrice != 0)
             {
-                Rangeproducts = Rangeproducts.Where(m => Convert.ToDecimal(m.ProductPrice) < obj.HighPrice);
+                Rangeproducts = Rangeproducts.Where(m => m.ProductPrice < obj.HighPrice);
             }
 
             var ProductList = Rangeproducts.ToList();
@@ -59,8 +59,8 @@ namespace YoKartApi.Services
                         break;
                     case "ProductPrice":
                         Rangeproducts = isAscending
-                        ? tempProduct.OrderBy(m => Convert.ToDecimal(m.ProductPrice))
-                        : tempProduct.OrderByDescending(m => Convert.ToDecimal(m.ProductPrice));
+                        ? tempProduct.OrderBy(m => m.ProductPrice)
+                        : tempProduct.OrderByDescending(m => m.ProductPrice);
                         break;
                     case "ProductDescription":
                         Rangeproducts = isAscending
@@ -109,7 +109,6 @@ namespace YoKartApi.Services
             }
             return ProductList;
         }
-
 
         //Random Product Listing
         public List<Product> RandomProduct(List<Product> products)

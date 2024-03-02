@@ -43,27 +43,7 @@ namespace YoKartApi.Controller
 
                 if (user != null)
                 {
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, user.Username),
-                        new Claim(ClaimTypes.Email, user.Email),
-                    };
-
-                    foreach (var role in user.Roles.Split(','))
-                    {
-                        claims.Add(new Claim(ClaimTypes.Role, role.Trim()));
-                    }
-
-                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    var principal = new ClaimsPrincipal(identity);
-
-                    var authProperties = new AuthenticationProperties
-                    {
-                        IsPersistent = true,
-                    };
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
-
-                    return Ok(true);
+                    return Ok(user);
                 }
                 else
                 {
@@ -79,9 +59,7 @@ namespace YoKartApi.Controller
         [HttpPost("Logout")]
         public async Task<IActionResult> LogOut()
         {
-            var username = HttpContext.User.Identity.Name;
-
-            var customClaimValue = HttpContext.User.FindFirst("CustomClaimType")?.Value;
+   
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
   
             return Ok("LogOut");

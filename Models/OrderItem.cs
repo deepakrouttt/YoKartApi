@@ -12,7 +12,9 @@ namespace YoKartApi.Models
 
         [Required]
         public int ProductId { get; set; }
-        public Product Products { get; set; }
+
+        [ForeignKey("ProductId")]
+        public Product? Products { get; set; }
 
         [Required]
         public int Quantity { get; set; }
@@ -42,6 +44,13 @@ namespace YoKartApi.Models
             {
                 return OrderItems?.Sum(item => item.Price);
             }
+        }
+
+        public class OrderDetails
+        {
+            public int UserId { get; set; }
+            public int ProductId { get; set; }
+            public int Quantity { get; set; }
         }
     }
 }

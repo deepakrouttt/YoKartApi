@@ -10,7 +10,7 @@ using YoKartApi.Models;
 
 namespace YoKartApi.Controller
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductApiController : ControllerBase

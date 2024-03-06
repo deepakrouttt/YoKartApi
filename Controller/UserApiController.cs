@@ -8,8 +8,6 @@ using YoKartApi.Data;
 using YoKartApi.IServices;
 using YoKartApi.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace YoKartApi.Controller
 {
     [Route("api/[controller]")]
@@ -36,32 +34,24 @@ namespace YoKartApi.Controller
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginUser _login)
         {
-            var Isvalidate = _context.Users.Any(s => s.Username == _login.Username && s.Password == _login.Password);
-            if (Isvalidate)
-            {
-                User user = await _service.GetUserDetails(_context.Users.ToList(), _login);
+            if (string.IsNullOrEmpty(_login.Username) || string.IsNullOrEmpty(_login.Password))
+                throw new Exception("Credentials are not valid");
 
-                if (user != null)
-                {
-                    return Ok(user);
-                }
-                else
-                {
-                    return Unauthorized();
-                }                                    
-            }
-            else
+            var userData = await _service.GetUserDetails(_login);
+
+            if (userData != null)
             {
-                return Unauthorized();
+                return Ok(userData);
             }
+            if (userData == null)
+                throw new Exception("User is not valid");
+            return Unauthorized();
         }
 
         [HttpPost("Logout")]
         public async Task<IActionResult> LogOut()
         {
-   
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-  
             return Ok("LogOut");
         }
 

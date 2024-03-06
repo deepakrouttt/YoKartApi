@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using YoKartApi.Data;
 using YoKartApi.IServices;
 using YoKartApi.Services;
@@ -13,34 +14,38 @@ namespace YoKartApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
+            builder.Services.AddControllers();
             builder.Services.AddDbContext<YoKartApiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
             // Add services to the container.
             builder.Services.AddScoped<IProductServices, ProductServices>();
             builder.Services.AddScoped<IUserServices, UserServices>();
+            builder.Services.AddScoped<IOrderServices, OrderServices>();
 
-            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //.AddCookie(options =>
-            //{
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            //    options.Cookie.Name = "user_token";
-            //    options.ExpireTimeSpan = TimeSpan.FromSeconds(60);
-            //    options.LoginPath = "/api/UserApi/Login";
-            //    options.AccessDeniedPath = "/Account/AccessDenied";
-            //});
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,       
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = builder.Configuration["Jwt:Audience"],
+                    ValidAudience = builder.Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                };
+            });
 
-            //builder.Services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
-            //    options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
-            //});
-
-
-            builder.Services.AddControllers();
-
+ 
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddHttpClient();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
             app.UseCors(policy => policy.AllowAnyHeader()
@@ -48,15 +53,17 @@ namespace YoKartApi
                             .SetIsOriginAllowed(origin => true)
                             .AllowCredentials());
 
-       
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseCookiePolicy();
+
             app.UseHttpsRedirection();
+            app.UseRouting();
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.MapControllers();

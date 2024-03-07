@@ -17,11 +17,17 @@ namespace YoKartApi.Models
         public Product? Products { get; set; }
 
         [Required]
+        public decimal UnitPrice { get; set; }
+
+        [Required]
         public int Quantity { get; set; }
+        [Required]
+        public DateTime OrderDate { get; set; }
+
+        public DateTime LastUpdateDate { get; set; }
 
         [Required]
         public decimal Price => (Products?.ProductPrice ?? decimal.Zero) * Quantity;
-
     }
 
     public class Order
@@ -33,6 +39,9 @@ namespace YoKartApi.Models
 
         [Required]
         public int UserId { get; set; }
+
+        [Required]
+        public String OrderStatus { get; set; }
 
         [Required]
         public ICollection<OrderItem> OrderItems { get; set; }
@@ -51,6 +60,7 @@ namespace YoKartApi.Models
             public int UserId { get; set; }
             public int ProductId { get; set; }
             public int Quantity { get; set; }
+            public String OrderStatus { get; set; }
         }
     }
 }

@@ -59,7 +59,7 @@ namespace YoKartApi.Controller
             }
         }
 
-        [HttpPost("UpdateOrder")]
+        [HttpPut("UpdateOrder")]
         public async Task<IActionResult> UpdateOrder(OrderDetails orderDetails)
         {
             var addProductOrder = await _service.UpdateOrder(orderDetails);

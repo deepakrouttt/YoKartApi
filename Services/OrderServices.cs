@@ -29,9 +29,12 @@ namespace YoKartApi.Services
                     var newOrderItem = new OrderItem
                     {
                         ProductId = orderDetails.ProductId,
+                        UnitPrice = existingProduct.ProductPrice,
                         Quantity = orderDetails.Quantity,
+                        OrderDate = DateTime.Now,
                         Products = existingProduct
                     };
+                    existingOrder.OrderStatus = orderDetails.OrderStatus;
                     existingOrder.OrderItems.Add(newOrderItem);
                     _context.SaveChanges();
                 }

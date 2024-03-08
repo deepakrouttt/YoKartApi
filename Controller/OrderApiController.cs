@@ -75,9 +75,9 @@ namespace YoKartApi.Controller
 
 
         [HttpDelete("RemoveOrder")]
-        public async Task<IActionResult> RemoveProductToOrder([FromQuery] OrderDetails orderDetails)
+        public async Task<IActionResult> RemoveProductToOrder(int userid, int productid)
         {
-            var RemoveOrderProduct = await _service.RemoveProductToOrder(orderDetails);
+            var RemoveOrderProduct = await _service.RemoveProductToOrder(userid,productid);
             if (RemoveOrderProduct != null)
             {
                 return Ok(RemoveOrderProduct);

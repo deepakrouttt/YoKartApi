@@ -7,6 +7,6 @@ namespace YoKartApi.IServices
     {
         Task<Order> AddProductToOrder(OrderDetails orderDetails);
         Task<OrderItem> UpdateOrder(OrderDetails orderDetails);
-        Task<OrderItem> RemoveProductToOrder(OrderDetails orderDetails);
+        Task<OrderItem> RemoveProductToOrder(int UserId,int ProductId);
     }
 }

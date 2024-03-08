@@ -42,16 +42,17 @@ namespace YoKartApi.Services
             return existingOrder;
         }
 
-        public async Task<OrderItem> RemoveProductToOrder(OrderDetails orderDetails)
+        public async Task<OrderItem> RemoveProductToOrder(int UserId,int ProductId)
         {
             var existingOrder = _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Products).
-              SingleOrDefault(o => o.UserId == orderDetails.UserId);
+              SingleOrDefault(o => o.UserId == UserId);
 
             if (existingOrder != null)
             {
-                var existingProduct = existingOrder.OrderItems.FirstOrDefault(m => m.ProductId == orderDetails.ProductId);
+                var existingProduct = existingOrder.OrderItems.FirstOrDefault(m => m.ProductId == ProductId);
 
                 existingOrder.OrderItems.Remove(existingProduct);
+                _context.OrderItems.Remove(existingProduct);
                 _context.SaveChanges();
 
                 return existingProduct;
@@ -69,8 +70,10 @@ namespace YoKartApi.Services
                 var existingProduct = existingOrder.OrderItems?.FirstOrDefault(m => m.ProductId == orderDetails.ProductId);
                 if (existingProduct != null)
                 {
+                    existingProduct.LastUpdateDate = DateTime.Now;
                     existingProduct.Quantity = orderDetails.Quantity;
                 }
+                _context.OrderItems.Update(existingProduct);
                 _context.SaveChanges();
                 return existingProduct;
             }

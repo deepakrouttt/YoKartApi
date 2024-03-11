@@ -97,10 +97,10 @@ namespace YoKartApi.Services
             var ProductList = new List<Product>();
             if (!string.IsNullOrEmpty(search))
             {
-                ProductList = Products.Where(p => (p.ProductName.Contains(search))
-                                                  || (p.ProductImage.Contains(search))
-                                                  || (_context.Categories.FirstOrDefault(m => m.CategoryId == p.CategoryId).CategoryName.Contains(search))
-                                                  || (_context.SubCategories.FirstOrDefault(m => m.SubCategoryId == p.SubCategoryId).SubCategoryName.Contains(search))
+                ProductList = Products.Where(p => (p.ProductName.ToLower().Contains(search.ToLower()))
+                                                  || (p.ProductImage.ToLower().Contains(search.ToLower()))
+                                                  || (_context.Categories.FirstOrDefault(m => m.CategoryId == p.CategoryId).CategoryName.ToLower().Contains(search.ToLower()))
+                                                  || (_context.SubCategories.FirstOrDefault(m => m.SubCategoryId == p.SubCategoryId).SubCategoryName.ToLower().Contains(search.ToLower()))
                                                   ).ToList();
             }
             else

@@ -30,7 +30,13 @@ namespace YoKartApi.Controller
 
             return Ok(users);
         }
+        [HttpGet("{id}")]
+        public IActionResult GetUser(int id)
+        {
+            var users = _context.Users.Find(id);
 
+            return Ok(users);
+        }
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginUser _login)
         {

@@ -258,3 +258,11 @@ C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\obj\Debug\net7.0\refint\Yo
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\obj\Debug\net7.0\YoKartApi.pdb
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\obj\Debug\net7.0\YoKartApi.genruntimeconfig.cache
 C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\obj\Debug\net7.0\ref\YoKartApi.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\bin\Debug\net7.0\MailKit.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\bin\Debug\net7.0\MimeKit.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\bin\Debug\net7.0\System.Formats.Asn1.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\bin\Debug\net7.0\System.Text.Encoding.CodePages.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\s12\OneDrive\Documents\Deepak\.Net\YoKartAPI\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Text.Encoding.CodePages.dll

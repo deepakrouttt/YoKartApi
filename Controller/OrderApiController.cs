@@ -40,7 +40,7 @@ namespace YoKartApi.Controller
         public async Task<IActionResult> GetOrderbyUser(int id)
         {
             var orders = _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Products).
-                SingleOrDefault(o => o.UserId == id);
+                SingleOrDefault(o => o.UserId == id && o.OrderStatus == "Cart");
 
             return Ok(orders);
         }
@@ -84,5 +84,17 @@ namespace YoKartApi.Controller
             }
             return NotFound();
         }
+
+        [HttpPost("OrderPlaced")]
+        public async Task<IActionResult> OrderPlaced([FromBody] int UserId)
+        {
+            var ifOrderPlaced = await _service.OrderPlaced(UserId);
+            if (ifOrderPlaced)
+            {
+                return Ok("Order Placed SuccessFully");
+            }
+            return NotFound();
+        }
     }
 }
+    

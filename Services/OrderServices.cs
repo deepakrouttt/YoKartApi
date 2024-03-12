@@ -66,7 +66,7 @@ namespace YoKartApi.Services
         public async Task<OrderItem> UpdateOrder(OrderDetails orderDetails)
         {
             var existingOrder = _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Products).
-              SingleOrDefault(o => o.UserId == orderDetails.UserId);
+              SingleOrDefault(o => o.UserId == orderDetails.UserId && o.OrderStatus == "Cart");
 
             if (existingOrder != null)
             {
@@ -86,7 +86,7 @@ namespace YoKartApi.Services
         public async Task<OrderItem> RemoveProductToOrder(int UserId, int ProductId)
         {
             var existingOrder = _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Products).
-              SingleOrDefault(o => o.UserId == UserId);
+              SingleOrDefault(o => o.UserId == UserId && o.OrderStatus == "Cart");
 
             if (existingOrder != null)
             {
@@ -100,7 +100,7 @@ namespace YoKartApi.Services
                 {
                     _context.Orders.Remove(existingOrder);
                     _context.SaveChanges();
-                    return null;
+                    return existingProduct;
                 }
 
                 return existingProduct;
@@ -108,6 +108,20 @@ namespace YoKartApi.Services
             return null;
         }
 
+        public async Task<bool> OrderPlaced(int UserId)
+        {
+            var existingOrder = _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Products).
+              SingleOrDefault(o => o.UserId == UserId && o.OrderStatus == "Cart");
+
+            if (existingOrder != null)
+            {
+                existingOrder.OrderStatus = "Order Placed";
+                _context.Orders.Update(existingOrder);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
 
     }
 }

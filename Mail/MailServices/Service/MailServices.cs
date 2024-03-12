@@ -1,7 +1,9 @@
 ﻿using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using Newtonsoft.Json;
 using YoKartApi.Mail.MailServices.IService;
+using YoKartApi.Models;
 
 
 namespace YoKartApi.Mail.MailServices.Service
@@ -16,6 +18,7 @@ namespace YoKartApi.Mail.MailServices.Service
 
         public async Task<bool> SendMailAsync(MailData mailData)
         {
+            mailData.EmailBody = await ConvertOrder(mailData);
             try
             {
                 using (MimeMessage emailMessage = new MimeMessage())
@@ -28,8 +31,7 @@ namespace YoKartApi.Mail.MailServices.Service
                     emailMessage.Subject = mailData.EmailSubject;
 
                     BodyBuilder emailBodyBuilder = new BodyBuilder();
-                    emailBodyBuilder.TextBody = mailData.EmailBody;
-
+                    emailBodyBuilder.HtmlBody = mailData.EmailBody;
                     emailMessage.Body = emailBodyBuilder.ToMessageBody();
 
                     using (SmtpClient mailClient = new SmtpClient())
@@ -40,14 +42,31 @@ namespace YoKartApi.Mail.MailServices.Service
                         await mailClient.DisconnectAsync(true);
                     }
                 }
-
                 return true;
             }
             catch (Exception ex)
             {
-                // Exception Details
                 return false;
             }
+        }
+
+        public async Task<String> ConvertOrder(MailData mailData)
+        {
+            var EmailObject = JsonConvert.DeserializeObject<Order>(mailData.EmailBody);
+            string html = $"<div style=\"margin:30px;background-color:#f4fdff;padding:25px;border:1px solid;\"><h2>YoKart" +
+                $"</h2><h4>{mailData.EmailToName}</h4><p>Your order has Comfirmed!</p>";
+            html += "<table border=\"1\" cellpadding=\"7\" style=\"border-collapse:collapse;color:black;\"><thead><tr>" +
+                "<th>Product Name</th><th>Unit Price</th><th>Quantity</th><th>Total</th>" +
+                "</tr></thead>";
+
+            foreach (var item in EmailObject.OrderItems)
+            {
+                html += $"<tbody><tr><td>{item.Products.ProductName}</td><td>{item.UnitPrice}</td><td>" +
+                    $"{item.Quantity}</td><td>{item.Price}</td></tr></tbody>";
+            }
+            html += $"</table><h4>Total Price = <b style=\"color:red;\">{EmailObject.TotalPrice}/-</b></h4>" +
+                $"<small>Thank you for placing your order!</small></div>";
+            return html;
         }
     }
 }
